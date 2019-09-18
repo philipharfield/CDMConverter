@@ -11,36 +11,13 @@ import uk.ac.bristol.CDMConverter.Exceptions.JSONConfigException;
 public final class ResourceResolver {
     @objid ("976329e8-ba47-4ce8-93b9-b78a31db99c7")
     public static List<String> resolveResource(JSONObject targetResource) throws JSONConfigException {
-        List<String> resources = null;
-        String encoding;
-        
-        if (targetResource.containsKey("encoding")) {
-            encoding = (String) targetResource.get("encoding");
-        } else {
-            throw new JSONConfigException("No encoding tag for target resource in JSON.");            
-        }
-        if (encoding.length() == 0) {
-            throw new JSONConfigException("Empty encoding tag for target resource in JSON.");
-        }
-        switch (encoding) {
-            case "FHIR":
-                resources = resolveFHIRResource(targetResource);        // Pointer so underlying objects are populated without return
-                break;
-            default:
-                throw new JSONConfigException("Unrecognised target resource encoding.");
-        }
-        return resources;
-    }
-
-    @objid ("001d60c9-eb2c-4eaf-9d7c-467891d769c1")
-    private static List<String> resolveFHIRResource(JSONObject targetResource) throws JSONConfigException {
         List<String> resources = new ArrayList<String>();
         
         JSONArray resourcesArray;
-        if (targetResource.containsKey("resource")) {
-            resourcesArray = (JSONArray) targetResource.get("resource");
+        if (targetResource.containsKey("resources")) {
+            resourcesArray = (JSONArray) targetResource.get("resources");
         } else {
-            throw new JSONConfigException("No resource tag in FHIR target resource in JSON.");
+            throw new JSONConfigException("No resources tag in FHIR target resource in JSON.");
         }
         
         for (Object o : resourcesArray) {
@@ -57,5 +34,4 @@ public final class ResourceResolver {
         }
         return resources;
     }
-
 }

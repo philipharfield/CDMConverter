@@ -87,13 +87,7 @@ public final class MainConverter {
                 throw new ApplicationException("Failed to create Target Encoding Instance.", ae);
             }
             
-            if (config.containsKey("targetResource")) {
-                targetResource = (JSONObject) config.get("targetResource");
-            } else {
-                throw new JSONConfigException("Failed to find targetResource tag in JSON.");
-            }
-            
-            List<String> targetResources = ResourceResolver.resolveResource(targetResource);
+            List<String> targetResources = ResourceResolver.resolveResource(targetObj);
             if (targetResources == null || targetResources.isEmpty()) {
                 throw new JSONConfigException("No resources specified in JSON file.");
             } else {
