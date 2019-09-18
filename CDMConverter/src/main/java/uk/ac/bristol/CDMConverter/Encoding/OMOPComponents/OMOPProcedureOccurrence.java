@@ -5,16 +5,16 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("9285b7ec-b8c4-49d1-9a3c-aa2b43747a02")
 public class OMOPProcedureOccurrence extends OMOPComponent {
     @objid ("a4a2b191-c24b-4103-8d9c-2c6140ad3bd6")
-    public int procedureConceptId;
+    private int procedureConceptId;
 
     @objid ("fc802714-30d9-4c69-bd47-60d66293ffe1")
-    public int procedureSourceConceptId;
+    private int procedureSourceConceptId;
 
     @objid ("95314ab9-56cf-471f-924e-f5718e2931a0")
-    public String procedureName;
+    private String procedureName;
 
     @objid ("91acd316-1fca-4b91-a11e-07f495f7c56e")
-    public String procedureType;
+    private String procedureType;
 
     @objid ("8b136601-769a-4948-85aa-8cdbaeaab3b7")
     public OMOPProcedureOccurrence(int pk) {
