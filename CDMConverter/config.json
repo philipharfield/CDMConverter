@@ -14,15 +14,12 @@
     "encoding": "FHIR",
     "config": {
       "directory": "c:\\temp\\fhirOutput",
-      "format": "XML"
+      "format": "XML",
+	  "resources": [
+	    "Patient",
+	    "Organization",
+	    "Procedure"
+	  ]
     }
-  },
-  "targetResource": {
-    "encoding": "FHIR",
-    "resource": [
-      "Patient",
-      "Organization",
-      "Procedure"
-    ]
   }
 }
