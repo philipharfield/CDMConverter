@@ -33,7 +33,7 @@ public class FHIRInstance implements IEncodingInstance {
     }
 
     @objid ("1d7fb9b3-3649-4b71-8db7-ca72afdd4129")
-    public ITranslatorManager getTranslatorTo(IEncodingInstance targetEI) {
+    public ITranslatorManager getTranslatorTo(IEncodingInstance targetEI) throws JSONConfigException {
         return TranslatorManagerFactory.getTranslatorManagerFHIRTo(targetEI);
     }
 
