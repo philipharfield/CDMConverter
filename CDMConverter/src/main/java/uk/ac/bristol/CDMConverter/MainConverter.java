@@ -36,7 +36,7 @@ public final class MainConverter {
     @objid ("34e0af00-4c3d-44e0-aabe-35b11555653d")
     public static void main(String[] args) {
         String jsonPath, sourceCohort;
-        JSONObject config, sourceObj, targetObj, targetResource;
+        JSONObject config, sourceObj, targetObj;
         
         logger.info("Starting...");
         if (args.length != 1) {
