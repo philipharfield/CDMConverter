@@ -1,0 +1,28 @@
+{
+  "source": {
+    "encoding": "OMOP",
+    "config": {
+      "dbServer": "localhost:1433",
+      "dbName": "ohdsi",
+      "dbUID": "",
+      "dbPassword": "",
+      "integratedSecurity": true
+    }
+  },
+  "sourceCohort": "2",
+  "target": {
+    "encoding": "FHIR",
+    "config": {
+      "directory": "c:\\temp\\fhirOutput",
+      "format": "XML"
+    }
+  },
+  "targetResource": {
+    "encoding": "FHIR",
+    "resource": [
+      "Patient",
+      "Organization",
+	  "Procedure"
+    ]
+  }
+}
