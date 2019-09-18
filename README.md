@@ -5,4 +5,4 @@ This project, written by the <a href="https://www.bristolbrc.nihr.ac.uk/our-rese
 
 The software is expandable to offer Any to Any medical format conversions.
 
-Code has been generated alongside a Modelio UML model. The software was developed in Eclipse and built using Maven.  In relies upon https://hapifhir.io/ libraries to generate FHIR R4.
+Code has been generated alongside a Modelio UML model. The software was developed in Eclipse and built using Maven.  In relies upon https://hapifhir.io/ libraries to generate FHIR R4. The OMOP database instance currently needs to be SQLServer with the mssql-jdbc drivers are provided via Maven. Again, this could be extended to postgres etc.
