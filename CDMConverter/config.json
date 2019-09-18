@@ -22,7 +22,7 @@
     "resource": [
       "Patient",
       "Organization",
-	  "Procedure"
+      "Procedure"
     ]
   }
 }
