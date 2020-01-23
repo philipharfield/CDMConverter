@@ -17,10 +17,10 @@ public class FHIRInstance implements IEncodingInstance {
     @objid ("ba361897-6f78-4c68-9b76-903e430a7efc")
     private IParser parser;
 
-    @objid ("da7aeaa7-a937-45d7-8a43-69aecaf6cc0c")
+    @objid ("ce0b0cec-8859-477f-b1c4-e21440d0259c")
     private String directory;
 
-	@objid ("bc492892-a5b3-49a6-98cb-4306c7d4d392")
+    @objid ("bc492892-a5b3-49a6-98cb-4306c7d4d392")
     public FHIRInstance(String directory, String fhirFormat) {
         this.directory = directory;
         
@@ -33,7 +33,7 @@ public class FHIRInstance implements IEncodingInstance {
     }
 
     @objid ("1d7fb9b3-3649-4b71-8db7-ca72afdd4129")
-    public ITranslatorManager getTranslatorTo(IEncodingInstance targetEI) throws JSONConfigException {
+    public ITranslatorManager getTranslatorTo(IEncodingInstance targetEI) {
         return TranslatorManagerFactory.getTranslatorManagerFHIRTo(targetEI);
     }
 
@@ -52,7 +52,9 @@ public class FHIRInstance implements IEncodingInstance {
         return parser;
     }
 
+    @objid ("ea7e0e72-1627-443d-a32c-bf4d5a11a28b")
     public String getDirectory() {
-		return directory;
-	}
+        return directory;
+    }
+
 }

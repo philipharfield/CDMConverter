@@ -1,7 +1,7 @@
 package uk.ac.bristol.CDMConverter.Encoding.DAOFHIRResources;
 
-import org.hl7.fhir.instance.model.api.IBaseResource;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.hl7.fhir.instance.model.api.IBaseResource;
 import uk.ac.bristol.CDMConverter.Encoding.FHIRInstance;
 import uk.ac.bristol.CDMConverter.Exceptions.ApplicationException;
 

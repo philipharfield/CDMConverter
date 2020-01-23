@@ -2,6 +2,9 @@ package uk.ac.bristol.CDMConverter.Encoding.OMOPComponents;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Relates to a row in the OMOP Care_site table
+ */
 @objid ("0a97f37c-e499-4552-b5ec-d6f6ec8351b3")
 public class OMOPCareSite extends OMOPComponent {
     @objid ("e2839c84-4085-461d-a3bc-3394e89d82a0")

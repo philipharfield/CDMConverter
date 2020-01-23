@@ -1,6 +1,7 @@
 package uk.ac.bristol.CDMConverter.Translation.OMOPToFHIR;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -8,6 +9,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hl7.fhir.instance.model.api.IBaseResource;
+import uk.ac.bristol.CDMConverter.Encoding.DAOFHIRResources.FHIRDAO;
 import uk.ac.bristol.CDMConverter.Encoding.DAOOMOPComponents.*;
 import uk.ac.bristol.CDMConverter.Encoding.EncodedComposite;
 import uk.ac.bristol.CDMConverter.Encoding.FHIRInstance;
@@ -16,7 +18,6 @@ import uk.ac.bristol.CDMConverter.Encoding.IEncodingInstance;
 import uk.ac.bristol.CDMConverter.Encoding.OMOPComponents.OMOPCohort;
 import uk.ac.bristol.CDMConverter.Encoding.OMOPComponents.OMOPPerson;
 import uk.ac.bristol.CDMConverter.Encoding.OMOPInstance;
-import uk.ac.bristol.CDMConverter.Encoding.DAOFHIRResources.FHIRDAO;
 import uk.ac.bristol.CDMConverter.Exceptions.ApplicationException;
 import uk.ac.bristol.CDMConverter.Translation.ITranslatorManager;
 import uk.ac.bristol.CDMConverter.Translation.RedundancyHashMap;
@@ -49,8 +50,7 @@ public class OMOPToFHIRTranslatorManager implements ITranslatorManager {
     }
 
     @objid ("f4a3db73-63cc-4c02-a627-f8e69eae8ae7")
-    private void doTranslate(OMOPInstance sourceEI, FHIRInstance targetEI, List<String> targetResources, int iSourceCohort) 
-    						throws ApplicationException {
+    private void doTranslate(OMOPInstance sourceEI, FHIRInstance targetEI, List<String> targetResources, int iSourceCohort) throws ApplicationException {
         OMOPCohortDAO cohortDAO = new OMOPCohortDAO(sourceEI.getDbSource().getConn());
         OMOPPersonDAO personDAO = new OMOPPersonDAO(sourceEI.getDbSource().getConn());
         FHIRDAO fhirDAO = new FHIRDAO();
@@ -86,21 +86,37 @@ public class OMOPToFHIRTranslatorManager implements ITranslatorManager {
             logger.debug(personComposite.toString());
             
             // Translate person records into FHIR resources
-            Collection<FHIRResource> resources = OMOPToFHIRMapper.doMapping(personComposite, targetResources);
+            Collection<FHIRResource> resources = doMapping(personComposite, targetResources);
             
             // For each resource generated, create the relevant FHIR messages
             Iterator<FHIRResource> resourceItr = resources.iterator();
             while (resourceItr.hasNext()) {
-            	FHIRResource nextResource = resourceItr.next();
+                FHIRResource nextResource = resourceItr.next();
                 IBaseResource encodedResource = nextResource.generateFHIRMessage(personComposite);
                 if (encodedResource == null) {
-                	throw new ApplicationException("You have no generateFHIRMessage implementation for resource of type " + nextResource.getClass().getSimpleName());
+                    throw new ApplicationException("You have no generateFHIRMessage implementation for resource of type " + nextResource.getClass().getSimpleName());
                 }
                 fhirDAO.persist(encodedResource, targetEI, nextResource.getPrimaryIdentifier());
                 
                 logger.debug(targetEI.getParser().encodeResourceToString(encodedResource));
             }
         }
+    }
+
+    @objid ("dda92a3a-28f5-4938-a15f-d85637e90ee0")
+    private Collection<FHIRResource> doMapping(EncodedComposite personComposite, List<String> resourceList) throws ApplicationException {
+        Collection<FHIRResource> resourceBundle = new ArrayList<>();
+        
+        // Get the FHIR mapper object from the factory based on resources in list
+        Iterator<String> itr = resourceList.iterator();
+        while (itr.hasNext()) {
+            // For each resource type, create the relevant resources
+            IOMOPToFHIRMapper mapper = OMOPToFHIRMapperFactory.getMapper(itr.next());
+            if (mapper != null) {
+                mapper.doMapping(resourceBundle, personComposite);
+            }
+        }
+        return resourceBundle;
     }
 
 }

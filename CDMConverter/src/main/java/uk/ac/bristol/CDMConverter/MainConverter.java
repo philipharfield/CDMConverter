@@ -36,7 +36,7 @@ public final class MainConverter {
     @objid ("34e0af00-4c3d-44e0-aabe-35b11555653d")
     public static void main(String[] args) {
         String jsonPath, sourceCohort;
-        JSONObject config, sourceObj, targetObj;
+        JSONObject config, sourceObj, targetObj, targetResource;
         
         logger.info("Starting...");
         if (args.length != 1) {
@@ -87,7 +87,13 @@ public final class MainConverter {
                 throw new ApplicationException("Failed to create Target Encoding Instance.", ae);
             }
             
-            List<String> targetResources = ResourceResolver.resolveResource(targetObj);
+            if (config.containsKey("targetResource")) {
+                targetResource = (JSONObject) config.get("targetResource");
+            } else {
+                throw new JSONConfigException("Failed to find targetResource tag in JSON.");
+            }
+            
+            List<String> targetResources = ResourceResolver.resolveResource(targetResource);
             if (targetResources == null || targetResources.isEmpty()) {
                 throw new JSONConfigException("No resources specified in JSON file.");
             } else {

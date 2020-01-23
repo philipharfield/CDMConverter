@@ -14,8 +14,8 @@ public final class TranslatorManagerFactory {
     }
 
     @objid ("af2e066e-a31c-43bf-b804-ab0b76174c37")
-    public static ITranslatorManager getTranslatorManagerFHIRTo(IEncodingInstance targetEI) throws JSONConfigException {
-        return targetEI.getTranslatorFromFHIR();
+    public static ITranslatorManager getTranslatorManagerFHIRTo(IEncodingInstance targetEI) {
+        return new FHIRToOMOPTranslatorManager();
     }
 
     @objid ("4b98f42d-dbc9-4f8c-a7b7-d14fdb44932d")
@@ -26,10 +26,6 @@ public final class TranslatorManagerFactory {
     @objid ("67efdaac-3b21-4839-9afb-c642fbd7cad3")
     public static ITranslatorManager getOMOPToFHIRManager() {
         return new OMOPToFHIRTranslatorManager();
-    }
-    
-    public static ITranslatorManager getFHIRtoOMOPManager() {
-    	return new FHIRToOMOPTranslatorManager();
     }
 
 }

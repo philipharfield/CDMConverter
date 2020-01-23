@@ -8,6 +8,9 @@ public abstract class OMOPComponent implements IEncodedComponent {
     @objid ("4366c6e9-92e0-416f-bc22-d5243cba4a98")
     protected int primaryKey;
 
+    /**
+     * <Enter note text here>
+     */
     @objid ("71ea25b8-1588-4bfd-867d-893d121cea93")
     protected boolean redundant;
 

@@ -21,14 +21,14 @@ public class PatientResource extends FHIRResource {
     @objid ("e3ab57d2-3564-4ab1-b7df-9acd59347e28")
     private String humanName;
 
-    @objid ("5f976d44-efbc-4ee1-a715-8acc536a7915")
-    private LocalDate birthDate;
-
     @objid ("4241f50d-1929-4a7c-9bca-d068bb02c547")
     private Reference generalPractitioner;
 
     @objid ("21701bd7-e1cb-4de6-ae9d-8990ea70d1c1")
     private AdministrativeGender gender;
+
+    @objid ("9ad3115a-6005-4f23-85e1-17c462b5ade7")
+    private LocalDate birthDate;
 
     @objid ("ed1690fc-0958-4e40-aec6-53b01a7017c3")
     public boolean isActive() {
@@ -54,16 +54,6 @@ public class PatientResource extends FHIRResource {
     public String toString() {
         return "Name : " + humanName + " Identifier : " + identifiers.get(0);
     }
-    
-    @objid ("803a7964-2586-4698-aaa4-96712debbc2c")
-    public void setGender(AdministrativeGender gender) {
-        this.gender = gender;
-    }
-
-    @objid ("71671e0b-d741-48ce-94de-610e2724d662")
-    public void setGeneralPractitioner(Reference generalPractitioner) {
-        this.generalPractitioner = generalPractitioner;
-    }
 
     @objid ("e3c88b76-41c8-4858-878b-e90d95f842a4")
     @Override
@@ -80,9 +70,19 @@ public class PatientResource extends FHIRResource {
             patient.addGeneralPractitioner(generalPractitioner);
         }
         if (this.birthDate != null) {
-        	patient.setBirthDate(Date.valueOf(birthDate));
+            patient.setBirthDate(Date.valueOf(birthDate));
         }
         return patient;
+    }
+
+    @objid ("803a7964-2586-4698-aaa4-96712debbc2c")
+    public void setGender(AdministrativeGender gender) {
+        this.gender = gender;
+    }
+
+    @objid ("71671e0b-d741-48ce-94de-610e2724d662")
+    public void setGeneralPractitioner(Reference generalPractitioner) {
+        this.generalPractitioner = generalPractitioner;
     }
 
 }

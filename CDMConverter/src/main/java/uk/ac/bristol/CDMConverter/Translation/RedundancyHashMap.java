@@ -9,11 +9,21 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import uk.ac.bristol.CDMConverter.Encoding.EncodedComposite;
 import uk.ac.bristol.CDMConverter.Encoding.IEncodedComponent;
 
+/**
+ * <Enter note text here>
+ */
 @objid ("72981e8c-0653-4226-92fc-f48bf20f2c6a")
 public final class RedundancyHashMap extends HashMap<String,String> {
     @objid ("ab1c82df-905e-4e08-82ca-f1a0f9e08f0c")
     private static final long serialVersionUID = 1L;
 
+    /**
+     * // Check if component exists in the current hash map
+     * If (containsKey(component.getHashKey)
+     *      // Set the component to redundant and set the reference
+     * else
+     *      // Add the key value pair to the hashmap
+     */
     @objid ("08df521c-178d-46f3-b5b3-c6453540cfb7")
     public void populate(IEncodedComponent component) {
         if (component instanceof EncodedComposite) {     // Forward onto sub components

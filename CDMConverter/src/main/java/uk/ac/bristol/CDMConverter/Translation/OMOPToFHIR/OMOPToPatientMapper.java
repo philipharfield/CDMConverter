@@ -12,6 +12,9 @@ import uk.ac.bristol.CDMConverter.Encoding.OMOPComponents.OMOPCareSite;
 import uk.ac.bristol.CDMConverter.Encoding.OMOPComponents.OMOPPerson;
 import uk.ac.bristol.CDMConverter.Exceptions.ApplicationException;
 
+/**
+ * Knows how to map a OMOP Person level composite into patient FHIR messages.
+ */
 @objid ("50f3c239-b25d-4965-940e-1ab5759fa369")
 public class OMOPToPatientMapper implements IOMOPToFHIRMapper {
     @objid ("0e8ed4c4-a79c-484d-bc4f-f76e7b4991ab")
@@ -40,7 +43,7 @@ public class OMOPToPatientMapper implements IOMOPToFHIRMapper {
             int month = (person.getMonthOfBirth() == 0) ? 1:person.getMonthOfBirth();
             int day = (person.getDayOfBirth() == 0) ? 1:person.getDayOfBirth();
             patient.setBirthDate(Year.of(person.getYearOfBirth()).atMonth(month).atDay(day));
-            patient.setGender(OMOPToFHIRMapper.genderMapper(person.getGenderConceptId()));
+            patient.setGender(OMOPToFHIRUtility.genderMapper(person.getGenderConceptId()));
             if (caresite != null) {
                 patient.setGeneralPractitioner(new Reference(caresite.getHashKey()));
             }

@@ -39,4 +39,5 @@ public class OrganizationResource extends FHIRResource {
         }
         return organization;
     }
+
 }

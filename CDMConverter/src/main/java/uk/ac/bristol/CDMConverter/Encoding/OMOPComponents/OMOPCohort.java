@@ -10,6 +10,9 @@ import org.apache.logging.log4j.Logger;
 /*At this stage, a cohort is assumed to be a cohort of person ids.
  * 
  */
+/**
+ * Relates to a set of persons, with person_id only populated.
+ */
 @objid ("5ce0cf18-ea32-41fd-b8ce-3b56973ca89b")
 public class OMOPCohort implements Iterable<OMOPPerson> {
     @objid ("7792fcf7-3469-4f0e-a4df-861c04db26f3")

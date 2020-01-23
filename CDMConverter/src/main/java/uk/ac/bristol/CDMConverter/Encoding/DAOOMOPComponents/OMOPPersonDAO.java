@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Iterator;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import uk.ac.bristol.CDMConverter.Encoding.EncodedComposite;
 import uk.ac.bristol.CDMConverter.Encoding.OMOPComponents.OMOPCareSite;
@@ -20,6 +19,9 @@ public class OMOPPersonDAO extends OMOPDAO implements IPopulatable {
         super(conn);
     }
 
+    /**
+     * For a partially populated class, return a composite that includes this class fully populated and all sub-classes populated as part of the composite pattern.
+     */
     @objid ("27aa197c-ded9-40b7-bb88-db3c56601295")
     public EncodedComposite populateComponents(OMOPComponent OMOPComponent) throws SQLException {
         OMOPPerson person = (OMOPPerson) OMOPComponent;
@@ -27,7 +29,7 @@ public class OMOPPersonDAO extends OMOPDAO implements IPopulatable {
         EncodedComposite level1Composite = new EncodedComposite();
         //Get complete person (including care site and observation period)        
         String query = "SELECT P.YEAR_OF_BIRTH, P.GENDER_CONCEPT_ID," +
-        				" P.MONTH_OF_BIRTH, P.DAY_OF_BIRTH, P.BIRTH_DATETIME," +
+                        " P.MONTH_OF_BIRTH, P.DAY_OF_BIRTH, P.BIRTH_DATETIME," +
                         " CS.CARE_SITE_NAME, CS.CARE_SITE_ID," +
                         " OP.OBSERVATION_PERIOD_ID, OP.OBSERVATION_PERIOD_START_DATE, OP.OBSERVATION_PERIOD_END_DATE" +
                         " FROM PERSON P" + 
@@ -39,9 +41,9 @@ public class OMOPPersonDAO extends OMOPDAO implements IPopulatable {
         rs = st.executeQuery(query);
         while (rs.next()) {
             if (rs.getDate("BIRTH_DATETIME") != null) {
-            	person.setBirthDatetime(rs.getDate("BIRTH_DATETIME").toLocalDate());
+                person.setBirthDatetime(rs.getDate("BIRTH_DATETIME").toLocalDate());
             }
-        	person.setYearOfBirth(rs.getInt("YEAR_OF_BIRTH"));
+            person.setYearOfBirth(rs.getInt("YEAR_OF_BIRTH"));
             person.setMonthOfBirth(rs.getInt("MONTH_OF_BIRTH"));
             person.setDayOfBirth(rs.getInt("DAY_OF_BIRTH"));
             person.setGenderConceptId(rs.getInt("GENDER_CONCEPT_ID"));
@@ -64,7 +66,7 @@ public class OMOPPersonDAO extends OMOPDAO implements IPopulatable {
         OMOPProcedureOccurrenceDAO procedureDAO = new OMOPProcedureOccurrenceDAO(conn);
         Iterator<OMOPProcedureOccurrence> itrPO = procedureDAO.getByPerson(person.getPrimaryKey()).iterator();
         while (itrPO.hasNext()) {
-        	level1Composite.addChild(itrPO.next());
+            level1Composite.addChild(itrPO.next());
         }
         
         //Get Visits
